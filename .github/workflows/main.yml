@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@master
+        uses: peaceiris/actions-hugo@v2
         with:
           hugo-version: '0.74.3'
           extended: true
@@ -34,6 +34,7 @@ jobs:
   deploy:
     name: Deploy website
     runs-on: ubuntu-20.04
+    needs: build
     steps:
       - name: checkout repository
         uses: actions/checkout@master
@@ -41,8 +42,8 @@ jobs:
       - name: Download Build artifact
         uses: actions/download-artifact@master
         with:
-          name: build
-          path: build
+          name: public
+          path: public
 
       - name: Setup firebase
         uses: w9jds/firebase-action@master
